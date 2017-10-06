@@ -1,4 +1,5 @@
 class Back < Sprite
+  #クリア画面の鳩を表示するクラス 
   def update
     self.x -= 1
     self.y -= 1

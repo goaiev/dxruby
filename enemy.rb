@@ -7,7 +7,7 @@ class Enemy < Sprite
       self.vanish
     end
   end
-  # ���̃I�u�W�F�N�g�����Փ˂��ꂽ�ۂɌĂ΂��郁�\�b�h
+  #当たったら消える
   def hit(obj)
     self.vanish
   end

@@ -11,41 +11,36 @@ point=0
 i=0
 clear=0
 font = Font.new(32)
-back1 = Image.load('image/shibafu.png') #背景
-back2 = Image.load('image/sky.jpg')
-back3 = Image.load('image/hato.png')
-back4 = Image.load('image/omedetou.png')
+back1 = Image.load('image/shibafu.png') #メイン背景
+back2 = Image.load('image/sky.jpg')#クリア画面:背景
+back3 = Image.load('image/hato.png')#クリア画面:鳩
+back4 = Image.load('image/omedetou.png')#クリア画面:メッセージ
 
-player_img = Image.load("image/player.png")
-#player_img.setColorKey([255, 255, 255])
+player_img = Image.load("image/player.png")#にわとり
 
+#落ちてくる鳥たち
 enemy_img1 = Image.load("image/pink.png")
 enemy_img2 = Image.load("image/purple.png")
 enemy_img3 = Image.load("image/skyblue.png")
 enemy_img4 = Image.load("image/yellow.png")
 enemy_img5 = Image.load("image/yellowgreen.png")
 
-bomb = Image.load("image/bakudan.png")
-#enemy_img.setColorKey([0, 0, 0])
+bomb = Image.load("image/bakudan.png")#爆弾
 
 player = Player.new(400, 450, player_img)
 
 enemies = []
 bombs = []
-#10.times do |i|
-#  enemies << Enemy.new(rand(800), rand(600), enemy_img1)
-#  enemies << Enemy.new(rand(800), rand(600), enemy_img2)
-#  enemies << Enemy.new(rand(800), rand(600), enemy_img3)
-#  enemies << Enemy.new(rand(800), rand(600), enemy_img4)
-#  enemies << Enemy.new(rand(800), rand(600), enemy_img5)
-#end
 
 Window.loop do
   break if Input.keyPush?(K_ESCAPE)
+
+  #背景描写
   Window.draw(0, 0, back1)
   Window.draw(400, 0, back1)
   Window.draw(0, 400, back1)
   Window.draw(400, 400, back1)
+  
   i+=1
 
   if i%50==0
@@ -67,25 +62,28 @@ Window.loop do
 
   player.update
   player.draw
-  Window.draw_font(100, 100, "point=#{point}", font)
+
+  Window.draw_font(100, 100, "point=#{point}", font)  #ポイント表示
 
   # 当たり判定
   res=Sprite.check(player, enemies)
+
   if res
-    point=player.score(point)
+    point=player.score(point)  #ポイント加算
   end
   res=Sprite.check(player, bombs)
-  if res
+  if res  #ポイント初期化
     point=0
   end
 
-  if point >= 50
+  if point >= 50  #クリア
     clear=1
     break
   end
 
 end
 
+#クリア画面
 if clear==1
   hato = Back.new(400, 450, back3)
   Window.loop do
